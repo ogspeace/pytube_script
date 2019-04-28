@@ -1,3 +1,5 @@
+# v1.2
+#- future proofed script: added create vids_dir output directory if directory didn't exist
 # v1.1
 #- downloads multiple vids based on text file listing (to_dl.txt)
 #- included status messages
@@ -14,6 +16,8 @@ dir_name = os.path.dirname(os.path.realpath(__file__))
 t = open(dir_name+"/to_dl.txt","r")
 toDL_list = t.readlines()
 cnt = 1
+if not os.path.exists(dir_name+"/vids_dir/"):
+    os.makedirs(dir_name+"/vids_dir/")
 for v in toDL_list:
     try:
         yt = YouTube(v.strip())

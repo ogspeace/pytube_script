@@ -1,1 +1,4 @@
 *.mp4
+__pycache__
+*.pyc
+*.py.save*
