@@ -21,7 +21,6 @@ if not os.path.exists(dir_name+"/vids_dir/"):
 for v in toDL_list:
     try:
         yt = YouTube(v.strip())
-        yt = yt.strip("https\:\/\/")
         print("[%s] Downloading video : '%s'. . ."%(cnt,yt.title))
         yt_filt = yt.streams.filter(progressive=True, file_extension='mp4')
         for x in yt_filt.all():
