@@ -1,5 +1,7 @@
 # v1.2
 #- future proofed script: added create vids_dir output directory if directory didn't exist
+#- added print_stdout method to force print/output
+#- modified ending commands - to cater to other operating systems outside linux
 # v1.1
 #- downloads multiple vids based on text file listing (to_dl.txt)
 #- included status messages
@@ -37,5 +39,9 @@ for v in toDL_list:
     cnt += 1
 t.close()
 
-os.system("rm %s/to_dl.txt"%dir_name)
-os.system("touch %s/to_dl.txt"%dir_name)
+
+if sys.platform == "linux":
+    command = "sudo rm %s/to_dl.txt && sudo touch %s/to_dl.txt"%(dir_name,dir_name)
+else: #windows
+    command = "rm to_dl.txt && touch to_dl.txt"
+os.system(command)
