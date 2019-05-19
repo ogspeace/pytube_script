@@ -1,3 +1,5 @@
+# v1.3
+#- added progress bar adapted from pytube documentation
 # v1.2
 #- future proofed script: added create vids_dir output directory if directory didn't exist
 #- added print_stdout method to force print/output
@@ -28,18 +30,17 @@ def display_progress_bar(bytes_received, filesize, ch='*', scale=0.55):
 
     filled = int(round(max_width * bytes_received / float(filesize)))
     remaining = max_width - filled
-    bar = ch * filled + ' ' * remaining
-    percent = round(100.0 * bytes_received / float(filesize), 1)
-    text = ' > |{bar}| {percent} % remaining \r'.format(bar=bar, percent=percent)
+    bar = ch * remaining + ' ' * filled
+    percent = round(100 - round(100.0 * bytes_received / float(filesize), 1), 1)
+    text = ' > |{bar}| {percent} % downloaded \r'.format(bar=bar, percent=percent)
     sys.stdout.write(text)
     sys.stdout.flush()
 
 def progress_Check(stream = None, chunk = None, file_handle = None, remaining = None):
     file_size = stream.filesize
     bytes_received = file_size - remaining
-#    percent = (100*(file_size-remaining))/file_size
     display_progress_bar(remaining, file_size)
-#    print_stdout("%.2f downloaded"%percent)
+
 
 dir_name = os.path.dirname(os.path.realpath(__file__))
 
