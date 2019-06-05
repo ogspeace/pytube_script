@@ -26,7 +26,7 @@ def print_stdout(s):
 def createDirDatestamp():
     today = datetime.datetime.now()
     title = today.strftime('%Y-%m-%d')
-    if not os.path.exists(dir_name+"/vids_dir/"+title)
+    if not os.path.exists(dir_name+"/vids_dir/"+title):
         os.makedirs(dir_name+"/vids_dir/"+title)
     return title
 
