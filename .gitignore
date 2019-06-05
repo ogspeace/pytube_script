@@ -2,4 +2,4 @@
 __pycache__
 *.pyc
 *.py.save*
-to_dl.txt
+*.txt
