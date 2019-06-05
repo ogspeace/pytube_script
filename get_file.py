@@ -1,3 +1,5 @@
+# v1.4
+#- added createDirDatestamp function which creates a directory with the date stamp as title for current downloaded batch
 # v1.3
 #- added progress bar adapted from pytube documentation
 # v1.2
@@ -13,12 +15,20 @@
 #
 # by: Ogs Ablazo
 from pytube import YouTube
-import os, sys
+import os, sys, datetime
+
+dir_name = os.path.dirname(os.path.realpath(__file__))
 
 def print_stdout(s):
     print(s)
     sys.stdout.flush()
 
+def createDirDatestamp():
+    today = datetime.datetime.now()
+    title = today.strftime('%Y-%m-%d')
+    if not os.path.exists(dir_name+"/vids_dir/"+title)
+        os.makedirs(dir_name+"/vids_dir/"+title)
+    return title
 
 def get_terminal_size():
     rows, columns = os.popen('stty size', 'r').read().split()
@@ -42,8 +52,6 @@ def progress_Check(stream = None, chunk = None, file_handle = None, remaining = 
     display_progress_bar(remaining, file_size)
 
 
-dir_name = os.path.dirname(os.path.realpath(__file__))
-
 t = open(dir_name+"/to_dl.txt","r")
 toDL_list = t.readlines()
 cnt = 1
@@ -51,12 +59,13 @@ if not os.path.exists(dir_name+"/vids_dir/"):
     os.makedirs(dir_name+"/vids_dir/")
 for v in toDL_list:
     try:
+        title = createDirDatestamp()
         yt = YouTube(v.strip(), on_progress_callback=progress_Check)
         print_stdout("[%s] Downloading video : '%s'. . ."%(cnt,yt.title))
         yt_filt = yt.streams.filter(progressive=True, file_extension='mp4')
         for x in yt_filt.all():
             print(x)
-        yt_filt.first().download(dir_name+"/vids_dir/")
+        yt_filt.first().download(dir_name+"/vids_dir/"+title+"/")
         print_stdout("[%s] successfully downloaded video '%s'!"%(cnt,yt.title))
         print_stdout("\n==============")
     except Exception as e:
