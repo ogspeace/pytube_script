@@ -1,4 +1,5 @@
 # pytube_script
+## by Ogs Ablazo
 pytube script to DL yt vids. tested on windows and linux (rasbian, debian, *ubuntu) devices.
 
 ## prerequisites:
