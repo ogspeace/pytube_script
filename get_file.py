@@ -69,7 +69,7 @@ for v in toDL_list:
         print_stdout("[%s] successfully downloaded video '%s'!"%(cnt,yt.title))
         print_stdout("\n==============")
     except Exception as e:
-        print_stdout(e)
+        raise e
     cnt += 1
 t.close()
 
