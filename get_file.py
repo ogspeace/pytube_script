@@ -68,8 +68,10 @@ for v in toDL_list:
         yt_filt.first().download(dir_name+"/vids_dir/"+title+"/")
         print_stdout("[%s] successfully downloaded video '%s'!"%(cnt,yt.title))
         print_stdout("\n==============")
-    except Exception as e:
+    except pytube.exceptions.RegexMatchError as e1:
         pass
+    except Exception as e:
+        print(e)
     cnt += 1
 t.close()
 
