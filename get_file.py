@@ -15,7 +15,7 @@
 #
 # by: Ogs Ablazo
 from pytube import YouTube
-import os, sys, datetime
+import os, pytube, sys, datetime, urllib
 
 dir_name = os.path.dirname(os.path.realpath(__file__))
 
@@ -68,11 +68,17 @@ for v in toDL_list:
         yt_filt.first().download(dir_name+"/vids_dir/"+title+"/")
         print_stdout("[%s] successfully downloaded video '%s'!"%(cnt,yt.title))
         print_stdout("\n==============")
-    except pytube.exceptions.RegexMatchError as e1:
+    except pytube.exceptions.RegexMatchError as regerr:
+        print("encountered {}~error cannot download {} ... skipping".format(regerr, yt.title))
+        pass
+    except urllib.error.HTTPError as HE:
+        print("encountered {}~error cannot download {} ... skipping".format(HE, yt.title))
         pass
     except Exception as e:
-        print(e)
-    cnt += 1
+        print("encountered {}~unique error cannot download {} ... skipping".format(e, yt.title))
+        pass
+    finally:
+        cnt += 1
 t.close()
 
 
