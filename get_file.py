@@ -1,3 +1,5 @@
+# v1.5
+#- for some reason stream sorting is inverted! changed download target from .first() to .last()
 # v1.4
 #- added createDirDatestamp function which creates a directory with the date stamp as title for current downloaded batch
 # v1.3
@@ -65,7 +67,7 @@ for v in toDL_list:
         yt_filt = yt.streams.filter(progressive=True, file_extension='mp4')
         for x in yt_filt.all():
             print(x)
-        yt_filt.first().download(dir_name+"/vids_dir/"+title+"/")
+        yt_filt.last().download(dir_name+"/vids_dir/"+title+"/")
         print_stdout("[%s] successfully downloaded video '%s'!"%(cnt,yt.title))
         print_stdout("\n==============")
     except pytube.exceptions.RegexMatchError as regerr:
