@@ -1,3 +1,5 @@
+# v1.6
+#- printing links and titles that were not downloaded because of an error
 # v1.5
 #- for some reason stream sorting is inverted! changed download target from .first() to .last()
 # v1.4
@@ -57,6 +59,7 @@ def progress_Check(stream = None, chunk = None, file_handle = None, remaining = 
 t = open(dir_name+"/to_dl.txt","r")
 toDL_list = t.readlines()
 cnt = 1
+not_downloaded = {}
 if not os.path.exists(dir_name+"/vids_dir/"):
     os.makedirs(dir_name+"/vids_dir/")
 for v in toDL_list:
@@ -72,12 +75,15 @@ for v in toDL_list:
         print_stdout("\n==============")
     except pytube.exceptions.RegexMatchError as regerr:
         print("encountered {}~error cannot download {} ... skipping".format(regerr, yt.title))
+        not_downloaded[yt.title] = v
         pass
     except urllib.error.HTTPError as HE:
         print("encountered {}~error cannot download {} ... skipping".format(HE, yt.title))
+        not_downloaded[yt.title] = v
         pass
     except Exception as e:
         print("encountered {}~unique error cannot download {} ... skipping".format(e, yt.title))
+        not_downloaded[yt.title] = v
         pass
     finally:
         cnt += 1
@@ -89,3 +95,11 @@ if sys.platform == "linux":
 else: #windows
     command = "rm to_dl.txt && touch to_dl.txt"
 os.system(command)
+
+print('was not able to download the following titles:')
+for title, link in not_downloaded.items():
+    print("title : {} | link : {}".format(title, link))
+
+print('reprinting links:')
+for link in not_downloaded.values():
+    print("{}".format(link))
