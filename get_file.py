@@ -1,3 +1,5 @@
+# v1.7
+#- additional printing of links on queue.
 # v1.6
 #- printing links and titles that were not downloaded because of an error
 # v1.5
@@ -66,7 +68,7 @@ for v in toDL_list:
     try:
         title = createDirDatestamp()
         yt = YouTube(v.strip(), on_progress_callback=progress_Check)
-        print_stdout("[%s] Downloading video : '%s'. . ."%(cnt,yt.title))
+        print_stdout("[%s] Downloading video : '%s'. . .\n link: < %s > "%(cnt,yt.title,v))
         yt_filt = yt.streams.filter(progressive=True, file_extension='mp4')
         for x in yt_filt.all():
             print(x)
