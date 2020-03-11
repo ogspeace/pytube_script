@@ -84,7 +84,7 @@ for v in toDL_list:
         not_downloaded[yt.title] = v
         pass
     except Exception as e:
-        print("encountered {}~unique error cannot download {} ... skipping".format(e, yt.title))
+        print("encountered {}~unique error cannot download {} ... skipping\nlink: < {} >".format(e, yt.title, v))
         not_downloaded[yt.title] = v
         pass
     finally:
@@ -101,7 +101,7 @@ os.system(command)
 print('was not able to download the following titles:')
 for title, link in not_downloaded.items():
     print("title : {} | link : {}".format(title, link))
-
-print('reprinting links:')
-for link in not_downloaded.values():
-    print("{}".format(link))
+if len(not_downloaded) > 0:
+    print('reprinting links:')
+    for link in not_downloaded.values():
+        print("{}".format(link))
