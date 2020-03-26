@@ -1,3 +1,5 @@
+# v1.8
+#- included rewrite to to_dl.txt feature for faulty links
 # v1.7
 #- additional printing of links on queue.
 # v1.6
@@ -97,11 +99,12 @@ if sys.platform == "linux":
 else: #windows
     command = "rm to_dl.txt && touch to_dl.txt"
 os.system(command)
-
-print('was not able to download the following titles:')
-for title, link in not_downloaded.items():
-    print("title : {} | link : {}".format(title, link))
 if len(not_downloaded) > 0:
+    print('was not able to download the following titles:')
+    for title, link in not_downloaded.items():
+        print("title : {} | link : {}".format(title, link))
     print('reprinting links:')
-    for link in not_downloaded.values():
-        print("{}".format(link))
+    with open(dir_name+"/to_dl.txt",'a') as fin:
+        for link in not_downloaded.values():
+            fin.write(link+"\n")
+            print("{}".format(link))
