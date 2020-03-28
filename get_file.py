@@ -106,5 +106,8 @@ if len(not_downloaded) > 0:
     print('reprinting links:')
     with open(dir_name+"/to_dl.txt",'a') as fin:
         for link in not_downloaded.values():
-            fin.write(link+"\n")
+            if len(not_downloaded) > 1:
+                fin.write(link+"\n")
+            else:
+                fin.write(link)
             print("{}".format(link))
