@@ -100,9 +100,6 @@ else: #windows
     command = "rm to_dl.txt && touch to_dl.txt"
 os.system(command)
 if len(not_downloaded) > 0:
-    print('was not able to download the following titles:')
-    for title, link in not_downloaded.items():
-        print("title : {} | link : {}".format(title, link))
     print('reprinting links:')
     with open(dir_name+"/to_dl.txt",'a') as fin:
         for link in not_downloaded.values():
