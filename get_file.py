@@ -1,3 +1,5 @@
+# v1.9
+#- included 'of n' to counter to know dl queue
 # v1.8
 #- included rewrite to to_dl.txt feature for faulty links
 # v1.7
@@ -70,12 +72,12 @@ for v in toDL_list:
     try:
         title = createDirDatestamp()
         yt = YouTube(v.strip(), on_progress_callback=progress_Check)
-        print_stdout("[%s] Downloading video : '%s'. . .\n link: < %s > "%(cnt,yt.title,v))
+        print_stdout("[%s of %s] Downloading video : '%s'. . .\n link: < %s > "%(cnt,len(toDL_list),yt.title,v))
         yt_filt = yt.streams.filter(progressive=True, file_extension='mp4')
         for x in yt_filt.all():
             print(x)
         yt_filt.last().download(dir_name+"/vids_dir/"+title+"/")
-        print_stdout("[%s] successfully downloaded video '%s'!"%(cnt,yt.title))
+        print_stdout("[%s of %s] successfully downloaded video '%s'!"%(cnt,len(toDL_list),yt.title))
         print_stdout("\n==============")
     except pytube.exceptions.RegexMatchError as regerr:
         print("encountered {}~error cannot download {} ... skipping".format(regerr, yt.title))
