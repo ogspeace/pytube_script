@@ -63,7 +63,7 @@ def progress_Check(stream = None, chunk = None, file_handle = None, remaining = 
 
 
 t = open(dir_name+"/to_dl.txt","r")
-toDL_list = t.readlines()
+toDL_list = [j for j in [line.strip() for line in t.readlines()] if j]
 cnt = 1
 not_downloaded = {}
 if not os.path.exists(dir_name+"/vids_dir/"):
