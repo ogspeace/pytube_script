@@ -1,3 +1,5 @@
+# v2.0 
+#- removes timestamp and all strings following & character which is one of the reasons for regex errors
 # v1.9
 #- included 'of n' to counter to know dl queue
 # v1.8
@@ -63,7 +65,12 @@ def progress_Check(stream = None, chunk = None, file_handle = None, remaining = 
 
 
 t = open(dir_name+"/to_dl.txt","r")
-toDL_list = [j for j in [line.strip() for line in t.readlines()] if j]
+toDL_list_old = [j for j in [line.strip() for line in t.readlines()] if j]
+toDL_list = []
+for url in toDL_list_old:
+    if '&' in url:
+        url = url.split('&')[0]
+    toDL_list.append(url)
 cnt = 1
 not_downloaded = {}
 if not os.path.exists(dir_name+"/vids_dir/"):
