@@ -1,3 +1,5 @@
+# v2.1
+#- using pytube3 (pip install pytube3), removed fiel_handle=none from progress_check w/c returns nonetype error
 # v2.0 
 #- removes timestamp and all strings following & character which is one of the reasons for regex errors
 # v1.9
@@ -58,7 +60,7 @@ def display_progress_bar(bytes_received, filesize, ch='*', scale=0.55):
     sys.stdout.write(text)
     sys.stdout.flush()
 
-def progress_Check(stream = None, chunk = None, file_handle = None, remaining = None):
+def progress_Check(stream = None, chunk = None, remaining=None): #file_handle = None, remaining = None):
     file_size = stream.filesize
     bytes_received = file_size - remaining
     display_progress_bar(remaining, file_size)
@@ -81,7 +83,7 @@ for v in toDL_list:
         yt = YouTube(v.strip(), on_progress_callback=progress_Check)
         print_stdout("[%s of %s] Downloading video : '%s'. . .\n link: < %s > "%(cnt,len(toDL_list),yt.title,v))
         yt_filt = yt.streams.filter(progressive=True, file_extension='mp4')
-        for x in yt_filt.all():
+        for x in yt_filt:
             print(x)
         yt_filt.last().download(dir_name+"/vids_dir/"+title+"/")
         print_stdout("[%s of %s] successfully downloaded video '%s'!"%(cnt,len(toDL_list),yt.title))
